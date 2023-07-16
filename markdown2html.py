@@ -1,7 +1,14 @@
 #!/usr/bin/python3
-"""Takes an argument 2 strings both files and verify errors"""
+"""Takes two arguments: two input files and verifies errors."""
 import sys
 import os.path
+
+
+def parse_bold_syntax(line):
+    """Parse the bold syntax in a line and replace with HTML tags."""
+    line = line.replace('**', '<b>', 1)  # Replace the first occurrence
+    line = line.replace('**', '</b>', 1)  # Replace the second occurrence
+    return line
 
 
 if __name__ == "__main__":
@@ -19,7 +26,7 @@ if __name__ == "__main__":
 
     def count_numchar(string, spec_char):
         """
-        Function that count the begining's chararcters repeated
+        Function that counts the beginning characters repeated
         Return: number of #
         """
         count = 0
@@ -41,6 +48,10 @@ if __name__ == "__main__":
 
             if line != '':
                 first_char = line[0]
+
+                # Parse bold syntax
+                line = parse_bold_syntax(line)
+
                 if first_char == '#':
                     count = count_numchar(line, '#')
                     if count > 0:
